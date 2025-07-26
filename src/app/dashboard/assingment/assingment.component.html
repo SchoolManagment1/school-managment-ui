@@ -1,0 +1,107 @@
+<div class="container-fluid p-4">
+
+  <!-- Page Heading -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold text-primary">
+      <i class="fas fa-tasks me-2"></i> Assignments
+    </h3>
+    <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#createAssignmentModal">
+      <i class="fas fa-plus me-1"></i> New Assignment
+    </button>
+  </div>
+
+  <!-- Assignments Table -->
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Class</th>
+              <th>Subject</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let assignment of assignments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ assignment.title }}</td>
+              <td>{{ assignment.className }}</td>
+              <td>{{ assignment.subject }}</td>
+              <td>{{ assignment.dueDate | date: 'mediumDate' }}</td>
+              <td>
+                <span [ngClass]="{
+                  'badge rounded-pill bg-success-subtle text-success border border-success': assignment.status === 'Active',
+                  'badge rounded-pill bg-secondary-subtle text-dark border border-secondary': assignment.status !== 'Active'
+                }">
+                  {{ assignment.status }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-info me-1" (click)="viewAssignment(assignment)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteAssignment(assignment.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="assignments.length === 0">
+              <td colspan="7" class="text-center text-muted">No assignments found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Assignment Modal -->
+  <div class="modal fade" id="createAssignmentModal" tabindex="-1" aria-labelledby="createAssignmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="createAssignmentModalLabel"><i class="fas fa-plus me-2"></i> Create Assignment</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form (ngSubmit)="submitAssignment()" #assignmentForm="ngForm">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" required [(ngModel)]="newAssignment.title" name="title">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Class</label>
+                <select class="form-select" required [(ngModel)]="newAssignment.className" name="className">
+                  <option value="" disabled selected>Select Class</option>
+                  <option *ngFor="let c of classList" [value]="c">{{ c }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-control" required [(ngModel)]="newAssignment.subject" name="subject">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Due Date</label>
+                <input type="date" class="form-control" required [(ngModel)]="newAssignment.dueDate" name="dueDate">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" [(ngModel)]="newAssignment.description" name="description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Assignment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <div class="card shadow-lg rounded-4 p-4 border-0 bg-light">
+    <div class="row align-items-center">
+      
+      <!-- Profile Picture -->
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <img
+          
+          alt="Profile Image"
+          class="rounded-circle shadow-sm border border-3 border-white"
+          width="150"
+          height="150"
+        />
+      </div>
+
+      <!-- Profile Information -->
+      <div class="col-md-8">
+        <h3 class="fw-bold mb-2">
+          {{ user?.firstName }} {{ user?.lastName }}
+        </h3>
+        <p class="text-muted mb-2">
+          <i class="fas fa-user-tag me-2 text-primary"></i>
+          {{ user?.role || 'GUEST' }}
+        </p>
+        <p class="mb-2">
+          <i class="fas fa-envelope me-2 text-secondary"></i>
+          {{ user?.email || 'Not Provided' }}
+        </p>
+        <p class="mb-2">
+          <i class="fas fa-phone me-2 text-success"></i>
+          {{ user?.phone || 'Not Provided' }}
+        </p>
+        <p class="mb-2">
+          <i class="fas fa-map-marker-alt me-2 text-danger"></i>
+          {{ user?.address || 'Not Provided' }}
+        </p>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <!-- Action Buttons -->
+    <div class="text-end">
+      <button class="btn btn-primary me-2 px-4 shadow-sm" (click)="editProfile()">
+        <i class="fas fa-edit me-2"></i>Edit Profile
+      </button>
+      <button class="btn btn-outline-danger px-4 shadow-sm" (click)="changePassword()">
+        <i class="fas fa-lock me-2"></i>Change Password
+      </button>
+    </div>
+  </div>
+</div>

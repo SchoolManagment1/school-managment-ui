@@ -1,0 +1,38 @@
+.welcome-msg {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.dashboard-card {
+  min-height: 220px;
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon-box {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.calendar {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.list-group-item {
+  border: none;
+  font-size: 0.95rem;
+}

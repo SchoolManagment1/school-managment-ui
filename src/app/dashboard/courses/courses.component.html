@@ -1,0 +1,66 @@
+<div class="container py-4">
+
+  <!-- Filter Bar -->
+  <div class="card shadow-sm mb-4 p-3 bg-white rounded-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Category</label>
+        <select class="form-select" [(ngModel)]="selectedCategory">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories">{{ category }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Instructor</label>
+        <select class="form-select" [(ngModel)]="selectedInstructor">
+          <option value="">All Instructors</option>
+          <option *ngFor="let instructor of instructors">{{ instructor }}</option>
+        </select>
+      </div>
+      <div class="col-md-4 text-end">
+        <button class="btn btn-outline-secondary mt-4" (click)="clearFilters()">Reset Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let course of filteredCourses()">
+      <div class="card h-100 rounded-4 shadow-sm p-3 bg-light course-card">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h5 class="fw-bold text-dark mb-0">{{ course.title }}</h5>
+          <span class="badge bg-gradient px-3 py-2 text-uppercase small"
+                [ngClass]="{
+                  'bg-success': course.tag === 'Popular',
+                  'bg-warning': course.tag === 'New',
+                  'bg-danger': course.tag === 'Limited'
+                }">
+            {{ course.tag }}
+          </span>
+        </div>
+
+        <p class="text-muted small mb-2"><i class="fas fa-user-tie me-1"></i> {{ course.instructor }}</p>
+
+        <ul class="list-unstyled small mb-3">
+          <li><i class="fas fa-clock text-primary me-2"></i>Duration: {{ course.duration }}</li>
+          <li><i class="fas fa-calendar-alt text-primary me-2"></i>Start: {{ course.startDate | date: 'MMM d, y' }}</li>
+          <li><i class="fas fa-money-bill-wave text-primary me-2"></i>Fees: ₹{{ course.fees }}</li>
+        </ul>
+
+        <!-- Rating Stars -->
+        <div class="mb-2">
+          <i *ngFor="let star of getStars(course.rating)" class="fas fa-star text-warning"></i>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between mt-auto">
+          <button class="btn btn-outline-primary btn-sm" [disabled]="course.enrolled">
+            {{ course.enrolled ? '✅ Enrolled' : '📘 Enroll' }}
+          </button>
+          <a [routerLink]="['/course', course.id]" class="btn btn-sm btn-dark">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

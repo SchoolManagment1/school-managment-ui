@@ -1,0 +1,72 @@
+/* Register Page Wrapper */
+.register-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(
+      rgba(30, 41, 59, 0.4),
+      rgba(30, 41, 59, 0.8)
+    ),
+    url('https://images.unsplash.com/photo-1601933470928-c5f95cd29dfb?auto=format&fit=crop&w=1170&q=80') no-repeat center center / cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Card Design */
+.register-card {
+  max-width: 720px;
+  width: 100%;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(to right, #ec4899, #8b5cf6, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient Button */
+.btn-gradient {
+  background: linear-gradient(to right, #22c55e, #10b981);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, #16a34a, #059669);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Background Animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .register-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .text-gradient {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,68 @@
+/* Background Wrapper */
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(
+      rgba(30, 41, 59, 0.5),
+      rgba(30, 41, 59, 0.7)
+    ),
+    url('https://www.shutterstock.com/image-vector/funny-kids-playing-nature-2436640769')
+      no-repeat center center / cover;
+  padding: 2rem;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Login Card */
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(to right, #ec4899, #8b5cf6, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient Button */
+.btn-gradient {
+  background: linear-gradient(to right, #22c55e, #10b981);
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, #16a34a, #059669);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Animate Background Gradient */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .login-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .text-gradient {
+    font-size: 1.25rem;
+  }
+}

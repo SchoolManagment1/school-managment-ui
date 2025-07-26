@@ -1,0 +1,124 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4 fw-bold text-primary-emphasis">🎓 Course Management Panel</h2>
+
+  <!-- Create Button -->
+  <div class="text-end mb-3">
+    <button class="btn btn-gradient-primary" (click)="openModal()">
+      ➕ Add New Course
+    </button>
+  </div>
+
+  <!-- Courses Table -->
+  <div class="table-responsive rounded-3 shadow-sm">
+    <table class="table table-hover table-bordered text-center align-middle">
+      <thead class="table-primary text-dark fw-semibold">
+        <tr>
+          <th>Title</th>
+          <th>Instructor</th>
+          <th>Category</th>
+          <th>Duration</th>
+          <th>Start Date</th>
+          <th>Fees (₹)</th>
+          <th>Enrolled</th>
+          <th>Rating</th>
+          <th>Tag</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <ng-container *ngIf="editingCourseId === course.id; else readRow">
+            <!-- Inline Editing Row -->
+            <td><input [(ngModel)]="editableCourse.title" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.instructor" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.category" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.duration" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.startDate" type="date" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.fees" type="number" class="form-control" /></td>
+            <td><input type="checkbox" [(ngModel)]="editableCourse.enrolled" /></td>
+            <td><input [(ngModel)]="editableCourse.rating" type="number" class="form-control" /></td>
+            <td><input [(ngModel)]="editableCourse.tag" class="form-control" /></td>
+            <td>
+              <button class="btn btn-sm btn-success me-1" (click)="saveRow(course.id)">💾</button>
+              <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">❌</button>
+            </td>
+          </ng-container>
+          <ng-template #readRow>
+            <td>{{ course.title }}</td>
+            <td>{{ course.instructor }}</td>
+            <td>{{ course.category || '-' }}</td>
+            <td>{{ course.duration }}</td>
+            <td>{{ course.startDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ course.fees }}</td>
+            <td>{{ course.enrolled ? '✅' : '❌' }}</td>
+            <td>{{ course.rating }}</td>
+            <td>{{ course.tag || '-' }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary me-1" (click)="editRow(course)">✏️</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteCourse(course.id)">🗑️</button>
+            </td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal for Creating Course -->
+  <div class="modal fade show d-block" *ngIf="showModal" style="background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header bg-gradient text-white">
+          <h5 class="modal-title">➕ Add New Course</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="courseForm" (ngSubmit)="submitForm()">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Title</label>
+                <input formControlName="title" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Instructor</label>
+                <input formControlName="instructor" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Category</label>
+                <input formControlName="category" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Duration</label>
+                <input formControlName="duration" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Start Date</label>
+                <input type="date" formControlName="startDate" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Fees</label>
+                <input type="number" formControlName="fees" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Rating</label>
+                <input type="number" formControlName="rating" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tag</label>
+                <input formControlName="tag" class="form-control" />
+              </div>
+              <div class="col-12">
+                <label class="form-check-label me-2">Enrolled:</label>
+                <input type="checkbox" formControlName="enrolled" />
+              </div>
+            </div>
+
+            <div class="text-end mt-4">
+              <button type="submit" class="btn btn-gradient-success" [disabled]="courseForm.invalid">💾 Save</button>
+              <button type="button" class="btn btn-outline-secondary ms-2" (click)="closeModal()">❌ Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

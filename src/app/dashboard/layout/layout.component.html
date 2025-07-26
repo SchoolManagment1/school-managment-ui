@@ -1,0 +1,64 @@
+<!-- layout.component.html -->
+
+<!-- Topbar -->
+<nav class="navbar navbar-expand-lg topbar sticky-top shadow-sm bg-gradient-multicolor">
+  <div class="container-fluid">
+    <!-- Sidebar toggle (mobile only) -->
+    <button class="btn text-white d-lg-none" (click)="toggleSidebar()">
+      <i class="fas" [ngClass]="isSidebarOpen ? 'fa-times' : 'fa-bars'"></i>
+    </button>
+
+    <!-- Branding -->
+    <a class="navbar-brand text-white ms-2 fw-bold" routerLink="/">🎓 EduZone</a>
+
+    <!-- Profile Dropdown -->
+    <div class="dropdown ms-auto">
+      <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-user-circle me-2"></i> Profile
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+        <li>
+          <a class="dropdown-item" routerLink="/layout/profile">
+            <i class="fas fa-user me-2 text-primary"></i> My Profile
+          </a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a class="dropdown-item text-danger" (click)="logout()">
+            <i class="fas fa-sign-out-alt me-2"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar text-white shadow sidebar-gradient" [ngClass]="{ 'sidebar-collapsed': !isSidebarOpen && isMobile }">
+  <div class="sidebar-header p-3 d-flex align-items-center">
+    <i class="fas fa-school fa-lg me-2"></i>
+    <span class="fw-bold fs-5">Dashboard</span>
+  </div>
+  <hr class="m-0" style="border-color: #ccc;" />
+
+  <ul class="nav flex-column p-2">
+    <li class="nav-item" *ngFor="let item of filteredMenu">
+      <a
+        class="nav-link d-flex align-items-center nav-link-hover text-white"
+        [routerLink]="item.link"
+        routerLinkActive="active"
+        (click)="closeSidebarOnMobile()"
+      >
+        <i [class]="item.icon + ' me-2'"></i> {{ item.label }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content" [ngClass]="{ 'with-sidebar': isSidebarOpen || !isMobile }">
+  <div class="container-fluid p-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

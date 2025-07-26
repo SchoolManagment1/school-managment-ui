@@ -1,0 +1,238 @@
+<div class="container mt-4">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">User Management</h2>
+    <button class="btn btn-primary rounded-pill px-4 shadow-sm" (click)="openModal()">
+      <i class="fas fa-user-plus me-2"></i>Add User
+    </button>
+  </div>
+
+  <!-- User Table -->
+ 
+<div class="table-responsive mt-4">
+  <table class="table table-bordered table-striped align-middle text-center shadow-sm rounded">
+    <thead class="table-dark">
+      <tr>
+        <th style="width: 18%;">Full Name</th>
+        <th style="width: 20%;">Email</th>
+        <th style="width: 15%;">Phone</th>
+        <th style="width: 12%;">Role</th>
+        <th style="width: 13%;">Status</th>
+        <th style="width: 22%;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of users">
+        <tr *ngIf="editingUserId !== user.id">
+          <td class="text-start">{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td><span class="badge bg-info text-dark">{{ user.role }}</span></td>
+          <td>
+            <span class="badge" [ngClass]="user.status ? 'bg-success' : 'bg-danger'">
+              {{ user.status ? 'ACTIVE' : 'INACTIVE' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editRow(user)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+
+        <!-- Editable Row -->
+        <tr *ngIf="editingUserId === user.id">
+          <td class="text-start">
+            <input [(ngModel)]="editableUser.firstName" class="form-control form-control-sm mb-1" placeholder="First name" />
+            <input [(ngModel)]="editableUser.lastName" class="form-control form-control-sm" placeholder="Last name" />
+          </td>
+          <td>
+            <input [(ngModel)]="editableUser.email" class="form-control form-control-sm" placeholder="Email" />
+          </td>
+          <td>
+            <input [(ngModel)]="editableUser.phone" class="form-control form-control-sm" placeholder="Phone" />
+          </td>
+          <td>
+            <select [(ngModel)]="editableUser.role" class="form-select form-select-sm">
+              <option value="ADMIN">ADMIN</option>
+              <option value="STUDENT">STUDENT</option>
+              <option value="TEACHER">TEACHER</option>
+            </select>
+          </td>
+          <td>
+            <select [(ngModel)]="editableUser.status" class="form-select form-select-sm">
+              <option [ngValue]="true">ACTIVE</option>
+              <option [ngValue]="false">INACTIVE</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-success me-1" (click)="updateUser()">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+
+
+  <!-- Modal for Add User -->
+  <div class="modal fade show d-block" *ngIf="showModal" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content shadow-lg rounded-4 border-0">
+      <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+        <!-- Modal Header -->
+        <div class="modal-header bg-primary text-white rounded-top-4">
+          <h5 class="modal-title">
+            <i class="fas" [ngClass]="editingUser ? 'fa-user-edit' : 'fa-user-plus'"></i>
+            {{ editingUser ? ' Edit User' : ' Add New User' }}
+          </h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body px-4 py-3">
+          <div class="row g-4">
+
+        <!-- First Name -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">First Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input formControlName="firstName" class="form-control" placeholder="Enter first name" />
+          </div>
+          <div *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid" class="text-danger mt-1">
+            First name is required
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Last Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input formControlName="lastName" class="form-control" placeholder="Enter last name" />
+          </div>
+          <div *ngIf="userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid" class="text-danger mt-1">
+            Last name is required
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Phone</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+            <input formControlName="phone" class="form-control" placeholder="+91 9876543210" />
+          </div>
+          <div *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.invalid" class="text-danger mt-1">
+            Phone number is required
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            <input formControlName="email" type="email" class="form-control" placeholder="user@example.com" />
+          </div>
+          <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors">
+            <div class="text-danger mt-1" *ngIf="userForm.get('email')?.errors?.['required']">Email is required</div>
+            <div class="text-danger mt-1" *ngIf="userForm.get('email')?.errors?.['email']">Enter a valid email</div>
+          </div>
+        </div>
+
+            <!-- Password field (only in create mode) -->
+            <ng-container *ngIf="!editingUser">
+                <!-- Password -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" placeholder="Enter password" />
+            <span class="input-group-text" style="cursor: pointer;" (click)="togglePasswordVisibility()">
+              <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </span>
+          </div>
+          <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid" class="text-danger mt-1">
+            Password is required
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Re-enter password" />
+          </div>
+          <div *ngIf="userForm.get('confirmPassword')?.touched && userForm.get('confirmPassword')?.invalid" class="text-danger mt-1">
+            Confirm password is required
+          </div>
+          <div *ngIf="userForm.errors?.['passwordMismatch'] && userForm.get('confirmPassword')?.touched" class="text-danger mt-1">
+            Passwords do not match
+          </div>
+        </div>
+            </ng-container>
+
+             <div class="col-md-6">
+          <label class="form-label fw-semibold">Address</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+            <input formControlName="address" class="form-control" placeholder="City, Country" />
+          </div>
+        </div>
+            <!-- Status only in edit mode -->
+            <ng-container *ngIf="editingUser">
+              <div class="col-md-6">
+                <label class="form-label">
+                  <i class="fas fa-toggle-on me-1 text-secondary"></i>Status
+                </label>
+                <select class="form-select" formControlName="status">
+                  <option [ngValue]="true">ACTIVE</option>
+                  <option [ngValue]="false">INACTIVE</option>
+                </select>
+              </div>
+            </ng-container>
+
+                <!-- Role -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Role</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+              <select formControlName="role" class="form-select">
+                <option [ngValue]="null" disabled>Select role</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="STUDENT">STUDENT</option>
+                <option value="TEACHER">TEACHER</option>
+              </select>
+            </div>
+          </div>
+
+          </div>
+        </div> 
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between px-4 py-3">
+          <button type="button" class="btn btn-outline-secondary rounded-pill" (click)="closeModal()">
+            <i class="fas fa-times me-1"></i>Cancel
+          </button>
+          <button type="submit" class="btn btn-success rounded-pill px-4" [disabled]="userForm.invalid">
+            <i class="fas fa-save me-2"></i>{{ editingUser ? 'Update' : 'Save' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>

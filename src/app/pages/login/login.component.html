@@ -1,0 +1,85 @@
+<!-- login.component.html -->
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="login-card card p-4 rounded-4 shadow-lg">
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <h4 class="text-gradient fw-bold">
+        <i class="fas fa-sign-in-alt me-2"></i> Login to School Portal
+      </h4>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="mb-3 position-relative">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light">
+            <i class="fas fa-envelope text-primary"></i>
+          </span>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder="user@example.com"
+            formControlName="email"
+          />
+        </div>
+        <div class="text-danger small" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          Email is required
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3 position-relative">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light">
+            <i class="fas fa-lock text-primary"></i>
+          </span>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div class="text-danger small" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          Password is required
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger text-center py-1">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid mt-3">
+        <button class="btn btn-gradient text-white fw-semibold" [disabled]="loginForm.invalid">
+          <i class="fas fa-sign-in-alt me-1"></i> Login
+        </button>
+      </div>
+
+      <!-- Forgot Password -->
+<div class="text-center mt-2">
+  <a routerLink="/forgot-password" class="text-decoration-none text-danger fw-semibold">
+    <i class="fas fa-unlock-alt me-1"></i> Forgot Password?
+  </a>
+</div>
+
+<!-- Register Link -->
+<p class="text-center mt-3 mb-0">
+  Don’t have an account?
+  <a routerLink="/register" class="text-decoration-none text-primary fw-bold">Register</a>
+</p>
+
+  
+      
+    </form>
+  </div>
+</div>

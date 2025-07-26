@@ -1,0 +1,97 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4 fw-bold text-primary">📋 Attendance Management</h2>
+
+  <!-- Class & Date Selection -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <label for="classSelect" class="form-label">Select Class</label>
+      <select id="classSelect" class="form-select" [(ngModel)]="selectedClass" (change)="onClassChange()">
+        <option value="">-- Choose Class --</option>
+        <option *ngFor="let cls of classes" [value]="cls">{{ cls }}</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="dateSelect" class="form-label">Select Date</label>
+      <input type="date" class="form-control" [(ngModel)]="selectedDate" />
+    </div>
+  </div>
+
+  <!-- Attendance Table -->
+  <div *ngIf="filteredStudents.length > 0" class="table-responsive shadow-sm rounded-3">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-primary text-dark">
+        <tr>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of filteredStudents">
+          <td>{{ student.rollNumber }}</td>
+          <td>{{ student.firstName }} {{ student.lastName }}</td>
+          <td>{{ student.studentClass }}</td>
+          <td>
+  <div class="btn-group gap-2">
+    <button class="btn btn-sm"
+            [ngClass]="student.attendanceStatus === 'Present' ? 'btn-success' : 'btn-outline-success'"
+            (click)="markAttendance(student, 'Present')">
+      <span *ngIf="student.attendanceStatus === 'Present'">✔️ Present</span>
+      <span *ngIf="student.attendanceStatus !== 'Present'">Present</span>
+    </button>
+
+    <button class="btn btn-sm"
+            [ngClass]="student.attendanceStatus === 'Absent' ? 'btn-danger' : 'btn-outline-danger'"
+            (click)="markAttendance(student, 'Absent')">
+      <span *ngIf="student.attendanceStatus === 'Absent'">❌ Absent</span>
+      <span *ngIf="student.attendanceStatus !== 'Absent'">Absent</span>
+    </button>
+  </div>
+</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Submit Button -->
+    <div class="text-end">
+      <button class="btn btn-primary mt-3" (click)="submitAttendance()">📤 Submit Attendance</button>
+    </div>
+  </div>
+
+  <!-- Attendance History -->
+  <div class="mt-5">
+    <h4 class="text-info mb-3">📚 Attendance History</h4>
+    <div *ngIf="attendanceRecords.length === 0" class="text-muted">No attendance records yet.</div>
+    <div *ngIf="attendanceRecords.length > 0" class="table-responsive shadow rounded">
+      <table class="table table-striped table-bordered text-center align-middle">
+        <thead class="table-info">
+          <tr>
+            <th>Date</th>
+            <th>Class</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of filteredHistory()">
+            <td>{{ record.date | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ record.studentClass }}</td>
+            <td>{{ record.rollNumber }}</td>
+            <td>{{ record.firstName }} {{record.lastName}}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'bg-success': record.status === 'Present',
+                'bg-danger': record.status === 'Absent'
+              }">
+                {{ record.status === 'Present' ? '✔️ Present' : '❌ Absent' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

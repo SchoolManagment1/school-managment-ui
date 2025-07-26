@@ -1,0 +1,29 @@
+.welcome-section {
+  background: linear-gradient(135deg, #5f2c82, #49a09d);
+}
+
+.card {
+  border: none;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  h6 {
+    font-weight: 600;
+  }
+}
+
+.bg-soft-purple  { background: linear-gradient(120deg, #9D50BB, #6E48AA); }
+.bg-soft-orange  { background: linear-gradient(120deg, #f7971e, #ffd200); }
+.bg-soft-blue    { background: linear-gradient(120deg, #56ccf2, #2f80ed); }
+.bg-soft-green   { background: linear-gradient(120deg, #00c9a7, #92fe9d); }
+.bg-soft-yellow  { background: #fffbe6; }
+.bg-soft-pink    { background: linear-gradient(120deg, #ff758c, #ff7eb3); }
+.bg-soft-cyan    { background: linear-gradient(120deg, #43e97b, #38f9d7); }
+.bg-soft-maroon  { background: linear-gradient(120deg, #ff0844, #ffb199); }
+
+.progress {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+}

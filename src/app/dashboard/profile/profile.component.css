@@ -1,0 +1,17 @@
+.card {
+  border-radius: 1rem;
+  background: #f9f9f9;
+}
+
+img.rounded-circle {
+  object-fit: cover;
+  border: 4px solid #0d6efd;
+}
+
+h3 {
+  color: #343a40;
+}
+
+p {
+  font-size: 0.95rem;
+}
