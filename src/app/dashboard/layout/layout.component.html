@@ -12,7 +12,7 @@
     <a class="navbar-brand text-white ms-2 fw-bold" routerLink="/">🎓 EduZone</a>
 
     <!-- Profile Dropdown -->
-    <div class="dropdown ms-auto" (click)="toggleSidebar1()">
+    <div class="dropdown ms-auto" (click)="closeSidebarOnMobile()">
       <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-user-circle me-2"></i> Profile
@@ -36,10 +36,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar text-white shadow sidebar-gradient" [ngClass]="{ 'sidebar-collapsed': !isSidebarOpen && isMobile }">
-  <div class="sidebar-header p-3 d-flex align-items-center">
-    <i class="fas fa-school fa-lg me-2"></i>
-    <span class="fw-bold fs-5">Dashboard</span>
-  </div>
+ 
   <hr class="m-0" style="border-color: #ccc;" />
 
   <ul class="nav flex-column p-2">
@@ -58,7 +55,7 @@
 
 <!-- Main Content -->
 <div class="main-content" [ngClass]="{ 'with-sidebar': isSidebarOpen || !isMobile }">
-  <div class="container-fluid p-3" (click)="bodycclik()">
+  <div class="container-fluid p-3" (click)="closeSidebarOnMobile()">
     <router-outlet></router-outlet>
   </div>
 </div>
