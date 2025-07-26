@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ProfileService } from '../../services/profile.service';
+import { UserResponse } from '../../models/user.model';
 
 @Component({
   selector: 'app-teacher',
@@ -9,6 +11,31 @@ import { RouterLink } from '@angular/router';
   styleUrl: './teacher.component.css'
 })
 export class TeacherComponent {
+
+  user: UserResponse | null = null;
+
+  constructor(private profileService:ProfileService) {}
+
+  ngOnInit(): void {
+      this.profileService.currentUser().subscribe({
+        next: (userInfo: UserResponse) => {
+          this.user = {
+            id: userInfo.id ?? 0,
+            firstName: userInfo.firstName ?? 'Unknown',
+            lastName: userInfo.lastName ?? '',
+            email: userInfo.email ?? 'Not Provided',
+            phone: userInfo.phone ?? 'Not Provided',
+            address: userInfo.address ?? 'Not Provided',
+            status: userInfo.status ?? true,
+            role: userInfo.role ?? 'GUEST'
+          };
+        },
+        error: (err) => {
+          console.error('Failed to fetch user profile', err);
+          this.user = null;
+        }
+      });
+    }
 dashboardCards = [
   {
     title: 'Manage Students',
