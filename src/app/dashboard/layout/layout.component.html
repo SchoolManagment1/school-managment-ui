@@ -12,14 +12,14 @@
     <a class="navbar-brand text-white ms-2 fw-bold" routerLink="/">🎓 EduZone</a>
 
     <!-- Profile Dropdown -->
-    <div class="dropdown ms-auto">
+    <div class="dropdown ms-auto" (click)="toggleSidebar1()">
       <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-user-circle me-2"></i> Profile
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-        <li>
-          <a class="dropdown-item" routerLink="/layout/profile">
+        <li >
+          <a class="dropdown-item" routerLink="/layout/profile" >
             <i class="fas fa-user me-2 text-primary"></i> My Profile
           </a>
         </li>
@@ -58,7 +58,7 @@
 
 <!-- Main Content -->
 <div class="main-content" [ngClass]="{ 'with-sidebar': isSidebarOpen || !isMobile }">
-  <div class="container-fluid p-3">
+  <div class="container-fluid p-3" (click)="bodycclik()">
     <router-outlet></router-outlet>
   </div>
 </div>

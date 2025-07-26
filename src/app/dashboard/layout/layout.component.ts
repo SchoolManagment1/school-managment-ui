@@ -70,7 +70,17 @@ export class LayoutComponent {
     
   }
 
+toggleSidebar1(){
+ if (this.isMobile) {
+      this.isSidebarOpen = false;
+    }
+}
 
+bodycclik(){
+  if (this.isMobile) {
+      this.isSidebarOpen = false;
+    }
+}
 
 navigateToDashboard(): void {
   debugger;
