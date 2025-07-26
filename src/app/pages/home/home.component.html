@@ -1,88 +1,64 @@
-<div class="page-container">
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <div class="header-content">
-        <div class="logo-section">
-          <img src="assets/logo.png" alt="School Logo" class="logo">
-          <h1 class="site-title">EduManage</h1>
-        </div>
-        <nav class="nav">
-          <a href="#" class="nav-link">Home</a>
-          <a href="#" class="nav-link">About</a>
-          <a href="#" class="nav-link">Features</a>
-          <a href="#" class="nav-link">Contact</a>
-          <a routerLink="/login" class="nav-button">Login</a>
-        </nav>
-      </div>
-    </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h2 class="hero-title">Welcome to EduManage</h2>
-        <p class="hero-text">Streamline your school's operations with our vibrant management system</p>
-        <div class="hero-buttons">
-          <a routerLink="/login" class="btn btn-primary">Get Started</a>
-          <a href="#" class="btn btn-secondary">Learn More</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<app-header></app-header>
 
-  <!-- Body Section -->
-  <main class="main-content">
-    <div class="container">
-      <div class="features-grid">
-        <!-- Feature Card 1 -->
-        <div class="feature-card card-purple">
-          <i class="fas fa-user-graduate feature-icon"></i>
-          <h3 class="feature-title">Student Management</h3>
-          <p class="feature-text">Efficiently manage student records, attendance, and academic progress.</p>
-        </div>
-        <!-- Feature Card 2 -->
-        <div class="feature-card card-orange">
-          <i class="fas fa-chalkboard-teacher feature-icon"></i>
-          <h3 class="feature-title">Teacher Portal</h3>
-          <p class="feature-text">Empower teachers with tools for grading, scheduling, and communication.</p>
-        </div>
-        <!-- Feature Card 3 -->
-        <div class="feature-card card-green">
-          <i class="fas fa-calendar-alt feature-icon"></i>
-          <h3 class="feature-title">Event Management</h3>
-          <p class="feature-text">Organize and track school events, meetings, and activities seamlessly.</p>
-        </div>
-      </div>
-    </div>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-section">
-          <h3 class="footer-title">EduManage</h3>
-          <p class="footer-text">Transforming school management with modern technology solutions.</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Quick Links</h3>
-          <ul class="footer-links">
-            <li><a href="#" class="footer-link">Privacy Policy</a></li>
-            <li><a href="#" class="footer-link">Terms of Service</a></li>
-            <li><a href="#" class="footer-link">Support</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-text">Email: supportedumanage.com</p>
-          <p class="footer-text">Phone: +1 (555) 123-4567</p>
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center text-white text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3">Empowering Education with Innovation</h1>
+    <p class="lead mb-4">Your all-in-one School Management Platform for Students, Teachers & Admins</p>
+    <a class="btn btn-lg btn-light rounded-pill px-4 py-2 fw-semibold" routerLink="/login">Explore Now</a>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Why Choose SchoolHub?</h2>
+    <p class="lead text-muted">
+      SchoolHub simplifies the way educational institutions operate — from managing students, courses, and attendance to organizing exams and grading.
+    </p>
+  </div>
+</section>
+
+<!-- Features / Cards Section -->
+<section class="features-section py-5 gradient-bg">
+  <div class="container">
+    <div class="row text-center text-white">
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow-lg h-100 card-glow">
+          <div class="card-body">
+            <i class="fas fa-user-graduate fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title fw-bold">Student Portal</h5>
+            <p class="card-text">Track your performance, attendance, and assignments in one place.</p>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2025 EduManage. All rights reserved.</p>
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow-lg h-100 card-glow">
+          <div class="card-body">
+            <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-warning"></i>
+            <h5 class="card-title fw-bold">Teacher Panel</h5>
+            <p class="card-text">Easily manage classes, grades, and student reports through a smart dashboard.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow-lg h-100 card-glow">
+          <div class="card-body">
+            <i class="fas fa-school fa-3x mb-3 text-success"></i>
+            <h5 class="card-title fw-bold">Admin Control</h5>
+            <p class="card-text">Full control over admissions, user management, and school configuration.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
-</div>
+  </div>
+</section>
+
+
+
+
+
+
+<app-footer></app-footer>

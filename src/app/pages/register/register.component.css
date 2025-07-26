@@ -2,10 +2,7 @@
 .register-wrapper {
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(
-      rgba(30, 41, 59, 0.4),
-      rgba(30, 41, 59, 0.8)
-    ),
+  background: linear-gradient(to right, #00c9ff, #92fe9d),
     url('https://images.unsplash.com/photo-1601933470928-c5f95cd29dfb?auto=format&fit=crop&w=1170&q=80') no-repeat center center / cover;
   display: flex;
   align-items: center;

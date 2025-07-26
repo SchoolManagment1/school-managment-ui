@@ -2,7 +2,7 @@
 
 /* Gradient background for Topbar */
 .bg-gradient-multicolor {
-  background: linear-gradient(90deg, #6a11cb, #2575fc, #00c6ff, #0072ff);
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
   background-size: 300% 300%;
   animation: gradientMove 8s ease infinite;
   color: white !important;
@@ -70,7 +70,7 @@
 
 /* Active router link style */
 .nav-link.active {
-  background-color: rgba(255, 255, 255, 0.2);
+ background: linear-gradient(to right, #00c9ff, #92fe9d);
   border-radius: 8px;
   font-weight: 600;
 }

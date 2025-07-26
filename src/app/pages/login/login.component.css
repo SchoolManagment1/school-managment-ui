@@ -1,10 +1,7 @@
 /* Background Wrapper */
 .login-wrapper {
   min-height: 100vh;
-  background: linear-gradient(
-      rgba(30, 41, 59, 0.5),
-      rgba(30, 41, 59, 0.7)
-    ),
+    background: linear-gradient(to right, #00c9ff, #92fe9d),
     url('https://www.shutterstock.com/image-vector/funny-kids-playing-nature-2436640769')
       no-repeat center center / cover;
   padding: 2rem;

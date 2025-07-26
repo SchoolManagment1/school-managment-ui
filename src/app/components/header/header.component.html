@@ -1,22 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-  <a class="navbar-brand" routerLink="/">EduManage</a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav ms-auto">
-      <li *ngIf="role === 'ADMIN'" class="nav-item">
-        <a class="nav-link" routerLink="/admin-dashboard">Admin</a>
-      </li>
-      <li *ngIf="role === 'TEACHER'" class="nav-item">
-        <a class="nav-link" routerLink="/teacher-dashboard">Teacher</a>
-      </li>
-      <li *ngIf="role === 'STUDENT'" class="nav-item">
-        <a class="nav-link" routerLink="/student-dashboard">Student</a>
-      </li>
-      <li *ngIf="role" class="nav-item">
-        <span class="nav-link disabled text-light">Welcome, {{ username }}</span>
-      </li>
-      <li *ngIf="role" class="nav-item">
-        <a class="nav-link text-danger" href="#" (click)="logout()">Logout</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-multicolor sticky-top shadow-sm px-3">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="assets/logo.png" alt="Logo" width="40" height="40" class="me-2 rounded-circle border border-white" />
+      <span class="fw-bold fs-4 text-white">School<span class="text-warning">Hub</span></span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Services</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Admissions</a></li>
+            <li><a class="dropdown-item" href="#">Courses</a></li>
+            <li><a class="dropdown-item" href="#">Online Classes</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-sm btn-light rounded-pill px-3 fw-semibold ms-2" routerLink="/login">Login</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

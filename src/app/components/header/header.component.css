@@ -1,0 +1,12 @@
+.bg-multicolor {
+  background: linear-gradient(to right, #ff416c, #ff4b2b, #ff6a00, #ffb347);
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  border-radius: 8px;
+}
