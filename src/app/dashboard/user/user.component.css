@@ -1,2 +1,38 @@
+/* Gradient button classes */
+.btn-gradient-primary {
+  background: linear-gradient(to right, #0066ff, #33ccff);
+  color: white;
+  border: none;
+}
+.btn-gradient-primary:hover {
+  background: linear-gradient(to right, #0052cc, #1aa3ff);
+}
 
+.btn-gradient-success {
+  background: linear-gradient(to right, #28a745, #a0e515);
+  color: white;
+  border: none;
+}
+.btn-gradient-success:hover {
+  background: linear-gradient(to right, #218838, #8bc34a);
+}
 
+.table-hover tbody tr:hover {
+  background-color: #f1f9ff;
+  transition: 0.3s;
+}
+
+.modal-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

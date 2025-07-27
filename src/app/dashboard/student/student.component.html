@@ -1,29 +1,31 @@
-<div class="container mt-4">
+<div class="container my-5">
+  <!-- Panel Header -->
+  <h2 class="text-center mb-4 fw-bold text-primary-emphasis">
+    🎓 Student Management Panel
+  </h2>
 
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Student Management</h2>
-    <button class="btn btn-primary rounded-pill px-4 shadow-sm" (click)="openModal()">
+  <!-- Create Button -->
+  <div class="text-end mb-3">
+    <button class="btn btn-gradient-primary rounded-pill px-4 shadow-sm" (click)="openModal()">
       <i class="fas fa-user-plus me-2"></i>Add Student
     </button>
   </div>
 
   <!-- Student Table -->
-  <div class="table-responsive mt-4">
-    <table class="table table-bordered table-striped align-middle text-center shadow-sm rounded">
-      <thead class="table-dark">
+  <div class="table-responsive rounded-3 shadow-sm">
+     <table class="table table-hover table-bordered text-center align-middle">
+      <thead class="table-primary text-dark fw-semibold">
         <tr>
-          <th style="width: 15%;">Full Name</th>
-          <th style="width: 12%;">Phone</th>
-          <th style="width: 12%;">Class</th>
-          <th style="width: 10%;">Roll No.</th>
-          <th style="width: 10%;">Status</th>
-          <th style="width: 18%;">Actions</th>
+          <th>Full Name</th>
+          <th>Phone</th>
+          <th>Class</th>
+          <th>Roll No.</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let user of users">
-
           <!-- Readonly Row -->
           <tr *ngIf="editingUserId !== user.id">
             <td class="text-start">{{ user.firstName }} {{ user.lastName }}</td>
@@ -36,10 +38,10 @@
               </span>
             </td>
             <td>
-              <button class="btn btn-sm btn-warning me-1" (click)="editRow(user)">
+              <button class="btn btn-sm btn-outline-warning me-1" (click)="editRow(user)">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
@@ -51,9 +53,9 @@
               <input [(ngModel)]="editableUser.firstName" class="form-control form-control-sm mb-1" placeholder="First name" />
               <input [(ngModel)]="editableUser.lastName" class="form-control form-control-sm" placeholder="Last name" />
             </td>
-            <td><input [(ngModel)]="editableUser.phone" class="form-control form-control-sm" placeholder="Phone" /></td>
-            <td><input [(ngModel)]="editableUser.studentClass" class="form-control form-control-sm" placeholder="Class" /></td>
-            <td><input [(ngModel)]="editableUser.rollNumber" class="form-control form-control-sm" placeholder="Roll Number" /></td>
+            <td><input [(ngModel)]="editableUser.phone" class="form-control form-control-sm" /></td>
+            <td><input [(ngModel)]="editableUser.studentClass" class="form-control form-control-sm" /></td>
+            <td><input [(ngModel)]="editableUser.rollNumber" class="form-control form-control-sm" /></td>
             <td>
               <select [(ngModel)]="editableUser.status" class="form-select form-select-sm">
                 <option [ngValue]="true">ACTIVE</option>
@@ -69,122 +71,99 @@
               </button>
             </td>
           </tr>
-
         </ng-container>
       </tbody>
     </table>
   </div>
 
   <!-- Modal for Add/Edit User -->
- <!-- Modal for Add/Edit User -->
-<div class="modal fade show d-block" *ngIf="showModal" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5);" role="dialog">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content shadow-lg rounded-4 border-0">
-      <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-
-        <!-- Modal Header -->
-        <div class="modal-header bg-primary text-white rounded-top-4">
-          <h5 class="modal-title">
-            <i class="fas" [ngClass]="editingUser ? 'fa-user-edit' : 'fa-user-plus'"></i>
-            {{ editingUser ? ' Edit User' : ' Add New User' }}
-          </h5>
-          <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body px-4 py-3">
-          <div class="row g-4">
-
-            <!-- First Name -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">First Name</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input formControlName="firstName" class="form-control" placeholder="Enter first name" />
-              </div>
-              <div class="text-danger mt-1" *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid">
-                First Name is required.
-              </div>
-            </div>
-
-            <!-- Last Name -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">Last Name</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input formControlName="lastName" class="form-control" placeholder="Enter last name" />
-              </div>
-              <div class="text-danger mt-1" *ngIf="userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid">
-                Last Name is required.
-              </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">Phone</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                <input formControlName="phone" class="form-control" placeholder="+91 9876543210" />
-              </div>
-              <div class="text-danger mt-1" *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.invalid">
-                <div *ngIf="userForm.get('phone')?.errors?.['required']">Phone is required.</div>
-                <div *ngIf="userForm.get('phone')?.errors?.['pattern']">Enter a valid phone number.</div>
-              </div>
-            </div>
-
-            <!-- Class -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">Class</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-school"></i></span>
-                <input formControlName="studentClass" class="form-control" placeholder="Enter class" />
-              </div>
-              <div class="text-danger mt-1" *ngIf="userForm.get('studentClass')?.touched && userForm.get('studentClass')?.invalid">
-                Class is required.
-              </div>
-            </div>
-
-            <!-- Roll Number -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold">Roll Number</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
-                <input formControlName="rollNumber" class="form-control" placeholder="Enter roll number" />
-              </div>
-              <div class="text-danger mt-1" *ngIf="userForm.get('rollNumber')?.touched && userForm.get('rollNumber')?.invalid">
-                <div *ngIf="userForm.get('rollNumber')?.errors?.['required']">Roll number is required.</div>
-                <div *ngIf="userForm.get('rollNumber')?.errors?.['pattern']">Only positive integers are allowed.</div>
-              </div>
-            </div>
-
-            <!-- Status (Edit only) -->
-            <ng-container *ngIf="editingUser">
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Status</label>
-                <select class="form-select" formControlName="status">
-                  <option [ngValue]="true">ACTIVE</option>
-                  <option [ngValue]="false">INACTIVE</option>
-                </select>
-              </div>
-            </ng-container>
-
+  <div class="modal fade show d-block" *ngIf="showModal" style="background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+          <!-- Header --> 
+          <div class="modal-header btn-gradient-primary">
+            <h5 class="modal-title">
+              <i class="fas" [ngClass]="editingUser ? 'fa-user-edit' : 'fa-user-plus'"></i>
+              {{ editingUser ? ' Edit User' : ' Add New User' }}
+            </h5>
+            <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
           </div>
-        </div>
 
-        <!-- Modal Footer -->
-        <div class="modal-footer d-flex justify-content-between px-4 py-3">
-          <button type="button" class="btn btn-outline-secondary rounded-pill" (click)="closeModal()">
-            <i class="fas fa-times me-1"></i>Cancel
-          </button>
-          <button type="submit" class="btn btn-success rounded-pill px-4" [disabled]="userForm.invalid">
-            <i class="fas fa-save me-2"></i>{{ editingUser ? 'Update' : 'Save' }}
-          </button>
-        </div>
+          <!-- Body -->
+          <div class="modal-body px-4 py-3">
+            <div class="row g-4">
+              <!-- First Name -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">First Name</label>
+                <input formControlName="firstName" class="form-control" placeholder="Enter first name" />
+                <div class="text-danger mt-1" *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid">
+                  First Name is required.
+                </div>
+              </div>
 
-      </form>
+              <!-- Last Name -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Last Name</label>
+                <input formControlName="lastName" class="form-control" placeholder="Enter last name" />
+                <div class="text-danger mt-1" *ngIf="userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid">
+                  Last Name is required.
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Phone</label>
+                <input formControlName="phone" class="form-control" placeholder="+91 9876543210" />
+                <div class="text-danger mt-1" *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.invalid">
+                  <div *ngIf="userForm.get('phone')?.errors?.['required']">Phone is required.</div>
+                  <div *ngIf="userForm.get('phone')?.errors?.['pattern']">Enter a valid phone number.</div>
+                </div>
+              </div>
+
+              <!-- Class -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Class</label>
+                <input formControlName="studentClass" class="form-control" placeholder="Enter class" />
+                <div class="text-danger mt-1" *ngIf="userForm.get('studentClass')?.touched && userForm.get('studentClass')?.invalid">
+                  Class is required.
+                </div>
+              </div>
+
+              <!-- Roll Number -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Roll Number</label>
+                <input formControlName="rollNumber" class="form-control" placeholder="Enter roll number" />
+                <div class="text-danger mt-1" *ngIf="userForm.get('rollNumber')?.touched && userForm.get('rollNumber')?.invalid">
+                  <div *ngIf="userForm.get('rollNumber')?.errors?.['required']">Roll number is required.</div>
+                  <div *ngIf="userForm.get('rollNumber')?.errors?.['pattern']">Only positive integers are allowed.</div>
+                </div>
+              </div>
+
+              <!-- Status (if editing only) -->
+              <ng-container *ngIf="editingUser">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Status</label>
+                  <select formControlName="status" class="form-select">
+                    <option [ngValue]="true">ACTIVE</option>
+                    <option [ngValue]="false">INACTIVE</option>
+                  </select>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer d-flex justify-content-between px-4 py-3">
+            <button type="button" class="btn btn-outline-secondary rounded-pill" (click)="closeModal()">
+              <i class="fas fa-times me-1"></i>Cancel
+            </button>
+            <button type="submit" class="btn btn-success rounded-pill px-4" [disabled]="userForm.invalid">
+              <i class="fas fa-save me-2"></i>{{ editingUser ? 'Update' : 'Save' }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-
-
 </div>
