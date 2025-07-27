@@ -1,30 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
- loginForm!: FormGroup;
+  loginForm!: FormGroup;
   errorMessage = '';
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient,
-    private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
-
-  
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -33,20 +34,38 @@ export class LoginComponent {
 
     const loginData = this.loginForm.value;
 
-    this.http.post<any>('https://school-managment-a7daa0789071.herokuapp.com/api/auth/login', loginData).subscribe({
-      
-      next: (response) => {
-        // Assume response contains a token
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/layout/profile']); // Redirect after login
-      },
-      error: (error) => {
-        this.errorMessage = 'Invalid email or password.';
-      }
-    });
+    this.http.post<any>('https://school-managment-a7daa0789071.herokuapp.com/api/auth/login', loginData)
+      .subscribe({
+        next: (response) => {
+          // Save token
+          localStorage.setItem('token', response.token);
+
+          // Assume response contains role (e.g., response.role = 'ADMIN')
+          const userRole = response.role?.toUpperCase();
+
+          // Navigate based on role
+          switch (userRole) {
+            case 'ADMIN':
+              this.router.navigate(['/layout/admin']);
+              break;
+            case 'TEACHER':
+              this.router.navigate(['/layout/teachers']);
+              break;
+            case 'STUDENT':
+              this.router.navigate(['/layout/students']);
+              break;
+            default:
+              this.router.navigate(['/layout/profile']);
+              break;
+          }
+        },
+        error: () => {
+          this.errorMessage = 'Invalid email or password.';
+        }
+      });
   }
 
-  togglePassword() {
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 }

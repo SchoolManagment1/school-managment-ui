@@ -42,7 +42,7 @@ export class LayoutComponent {
   if (confirmed) {
     this.authService.logout(); // Clear token/session
     localStorage.clear();      // Optional: clear everything or just `localStorage.removeItem('token')`
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
   
 }
