@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,private authService:AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,6 +28,19 @@ export class LoginComponent {
     });
   }
 
+  
+    ngOnInit(): void {
+      this.logout()
+    }
+  
+  
+    logout(): void {
+   
+      this.authService.logout(); // Clear token/session
+      localStorage.clear();      // Optional: clear everything or just `localStorage.removeItem('token')`
+      
+    
+  }
   onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
